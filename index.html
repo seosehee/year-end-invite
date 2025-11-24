@@ -34,19 +34,18 @@
     .page-wrapper {
       width: 100%;
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
+      display: block;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden; /* 세로 스크롤은 허용 */
     }
 
     /* ===== 1페이지 ===== */
     .slide1-container {
       position: absolute;
       top: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       width: 100%;
       max-width: 1080px;
       min-height: 100vh;
@@ -55,6 +54,7 @@
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
       z-index: 10;
+      transform: translateX(0);
     }
 
     .background-1 {
@@ -140,43 +140,40 @@
     }
 
     @keyframes pulse {
-      0% { opacity: 0.5; }
-      50% { opacity: 1; }
+      0%   { opacity: 0.5; }
+      50%  { opacity: 1; }
       100% { opacity: 0.5; }
     }
 
     @keyframes twinkle {
-      0% { opacity: 0; transform: scale(0.8); }
-      50% { opacity: 0.8; transform: scale(1.1); }
-      100% { opacity: 0; transform: scale(0.8); }
+      0%   { opacity: 0;   transform: scale(0.8); }
+      50%  { opacity: 0.8; transform: scale(1.1); }
+      100% { opacity: 0;   transform: scale(0.8); }
     }
 
-    /* PPT "이동" 느낌: 1페이지 왼쪽으로 나가고, 2페이지 오른쪽에서 들어오기 */
+    /* PPT "이동" 느낌: 1페이지 왼쪽으로, 2페이지 오른쪽에서 */
     @keyframes slide1MoveOutLeft {
-      from { transform: translateX(-50%); }
-      to   { transform: translateX(-150%); }
+      from { transform: translateX(0); }
+      to   { transform: translateX(-100%); }
     }
 
     @keyframes slide2MoveInLeft {
-      from { transform: translateX(50%); }
-      to   { transform: translateX(-50%); }
+      from { transform: translateX(100%); }
+      to   { transform: translateX(0); }
     }
 
     .slide1-container.move-out-left {
-      animation: slide1MoveOutLeft 1.0s ease-in-out forwards;
+      animation: slide1MoveOutLeft 0.9s ease-in-out forwards;
     }
 
     .slide2-container.move-in-left {
-      display: flex;
-      animation: slide2MoveInLeft 1.0s ease-in-out forwards;
+      animation: slide2MoveInLeft 0.9s ease-in-out forwards;
     }
 
     /* ===== 2페이지 ===== */
     .slide2-container {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(50%);  /* 처음엔 오른쪽 밖에 대기 */
+      position: relative; /* 문서 흐름 안에 있게 */
+      margin: 0 auto;
       width: 100%;
       max-width: 1080px;
       min-height: 100vh;
@@ -184,8 +181,8 @@
       overflow: hidden;
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
-      display: none;
       z-index: 5;
+      transform: translateX(100%); /* 처음에는 오른쪽 바깥에 대기 */
     }
 
     .background-2 {
@@ -230,7 +227,7 @@
     }
 
     .message p {
-      margin: 0 0 4px 0;  /* 문단 간격 4px */
+      margin: 0 0 4px 0; /* 문단 간격 4px */
     }
 
     .schedule,
@@ -537,11 +534,11 @@
       if (isTransitioning) return;
       isTransitioning = true;
 
-      // 두 번째 페이지를 맨 위에서 시작
+      // 두 번째 페이지는 항상 최상단부터 보이게
       window.scrollTo(0, 0);
 
-      slide2.classList.add('move-in-left');
       slide1.classList.add('move-out-left');
+      slide2.classList.add('move-in-left');
 
       slide1.addEventListener('animationend', () => {
         slide1.style.display = 'none';
