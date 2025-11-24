@@ -41,7 +41,7 @@
       display: flex;
       justify-content: center;
       align-items: stretch;
-      /* 책장 넘김 효과용 3D 원근감 */
+      /* ★ 3D 페이지 넘김을 위한 원근감 */
       perspective: 1200px;
     }
 
@@ -55,8 +55,9 @@
       overflow: hidden;
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
-      /* 페이지 플립용 */
-      transform-origin: right center;
+
+      /* ★ 페이지 넘김용 설정 */
+      transform-origin: left center;      /* 왼쪽을 축으로 넘기는 느낌 */
       backface-visibility: hidden;
     }
 
@@ -164,20 +165,25 @@
       z-index: 5;
     }
 
-    /* 책장 넘김 애니메이션 */
+    /* ★ 책장 넘기기 느낌 애니메이션 */
     @keyframes pageFlip {
       0% {
         transform: rotateY(0deg);
-        opacity: 1;
+        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+      }
+      40% {
+        transform: rotateY(-20deg);
+        box-shadow: -20px 0 40px rgba(0, 0, 0, 0.6);
       }
       100% {
-        transform: rotateY(-90deg);
+        transform: rotateY(-100deg);
+        box-shadow: -40px 0 60px rgba(0, 0, 0, 0.8);
         opacity: 0;
       }
     }
 
     .slide1-container.page-flip {
-      animation: pageFlip 0.6s ease forwards;
+      animation: pageFlip 0.7s ease-in-out forwards;
     }
 
     /* ===== 2페이지 (본문) ===== */
@@ -191,12 +197,15 @@
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
       display: none;
+      opacity: 0;
+      transition: opacity 0.6s ease;
     }
 
     .slide2-container.visible {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      opacity: 1;
     }
 
     .background-2 {
@@ -266,7 +275,7 @@
       letter-spacing: 0.3px;
     }
 
-    /* 🔹 인사 문구 3줄 간격 4px로 축소 */
+    /* ★ 인사 문구 3줄 간격 4px */
     .message p {
       margin: 0 0 4px 0;
     }
@@ -610,14 +619,14 @@
     function goToSlide2() {
       if (slide2.classList.contains('visible')) return;
 
-      // 책장 넘기는 애니메이션 시작
+      // ★ 책장 넘기기 애니메이션 시작
       slide1.classList.add('page-flip');
 
-      // 애니메이션 끝난 후 두 번째 페이지 노출
+      // 1페이지가 돌아가는 동안 약간 기다렸다가 2페이지 등장
       setTimeout(() => {
         slide1.style.display = 'none';
         slide2.classList.add('visible');
-      }, 600); // pageFlip 0.6s와 맞춤
+      }, 500); // 0.7s 중간 시점에 맞춰서
     }
 
     // ✅ 텍스트만 클릭/터치 시 이동
