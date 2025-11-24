@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2025 CAFE24 BUCHEON CENTER 송년의 밤</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+    /* 공통 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* ===== 1페이지 (표지) ===== */
+    .slide1-container {
+      position: relative;
+      width: 1080px;
+      min-height: 1920px;
+      background-color: #05071a;
+      overflow: hidden;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #fff;
+      margin: 0 auto;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-color: #05071a;
+    }
+
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0;
+      z-index: 2;
+      box-shadow: 0 0 4px 1px #fff;
+    }
+
+    .main-image {
+      position: relative;
+      width: 100%;
+      height: auto;
+      margin-top: 200px;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .main-image img {
+      max-width: 90%;
+      height: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .content {
+      position: relative;
+      z-index: 20;
+      text-align: center;
+      padding: 40px 50px;
+    }
+
+    .header {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: #c9a95c;
+      margin-top: 100px;
+    }
+
+    .title {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 80px;
+      font-weight: 800;
+      margin-bottom: 25px;
+      background: linear-gradient(to right, #c9a95c 0%, #f1e2b9 50%, #c9a95c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 15px rgba(201, 169, 92, 0.2);
+    }
+
+    .subtitle {
+      font-family: 'Nanum Myeongjo', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #d4af37;
+      margin-bottom: 50px;
+    }
+
+    .cta {
+      position: fixed;
+      bottom: 100px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 22px;
+      color: #c9a95c;
+      opacity: 0.8;
+      z-index: 30;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+      100% { opacity: 0; transform: scale(0.8); }
+    }
+
+    #starryNight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* ===== 2페이지 (본문) ===== */
+    .slide2-container {
+      position: relative;
+      width: 1080px;
+      min-height: 1920px;
+      background-color: #0a1029;
+      overflow: hidden;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #fff;
+      display: none; /* 처음에는 숨김 */
+      margin: 0 auto;
+      display: none;
+      display: none;
+      display: none;
+      /* 위에서 한 번만 의미 있음이지만, 확실히 숨기기 위해 중복 */
+      display: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* 위에서 display:none이 들어간 뒤 flex가 덮어쓰이므로,
+       확실히 숨기려면 아래에서 다시 지정 */
+    .slide2-container.hidden {
+      display: none !important;
+    }
+
+    .slide2-container.visible {
+      display: flex !important;
+    }
+
+    .elegant-border {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      right: 40px;
+      bottom: 40px;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .inner-border {
+      position: absolute;
+      top: 60px;
+      left: 60px;
+      right: 60px;
+      bottom: 60px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .corner {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      z-index: 5;
+    }
+
+    .corner-tl {
+      top: 40px;
+      left: 40px;
+      border-top: 2px solid #d4af37;
+      border-left: 2px solid #d4af37;
+    }
+
+    .corner-tr {
+      top: 40px;
+      right: 40px;
+      border-top: 2px solid #d4af37;
+      border-right: 2px solid #d4af37;
+    }
+
+    .corner-bl {
+      bottom: 40px;
+      left: 40px;
+      border-bottom: 2px solid #d4af37;
+      border-left: 2px solid #d4af37;
+    }
+
+    .corner-br {
+      bottom: 40px;
+      right: 40px;
+      border-bottom: 2px solid #d4af37;
+      border-right: 2px solid #d4af37;
+    }
+
+    .content2 {
+      position: relative;
+      z-index: 20;
+      text-align: center;
+      padding: 60px;
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      width: 260px;
+    }
+
+    .header-line {
+      flex: 1;
+      height: 1px;
+      background-color: #d4af37;
+    }
+
+    .header-diamond {
+      width: 8px;
+      height: 8px;
+      background-color: #d4af37;
+      transform: rotate(45deg);
+      margin: 0 12px;
+    }
+
+    .title2 {
+      font-family: 'Playfair Display', 'Gowun Batang', serif;
+      font-size: 42px;
+      font-weight: 700;
+      margin: 0 0 30px 0;
+      color: #d4af37;
+      text-shadow: 0 2px 6px rgba(201, 169, 92, 0.2);
+      line-height: 1.3;
+      letter-spacing: 1px;
+    }
+
+    .message {
+      font-size: 20px;
+      line-height: 1.7;
+      margin-bottom: 50px;
+      color: #f1e2b9;
+      max-width: 680px;
+      letter-spacing: 0.5px;
+    }
+
+    .message p {
+      margin: 0 0 15px 0;
+    }
+
+    .info-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 35px;
+    }
+
+    .schedule-container {
+      width: 100%;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .schedule {
+      background-color: rgba(10, 16, 41, 0.5);
+      padding: 30px;
+      border: 1px solid #c9a95c;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .schedule:before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border: 1px solid rgba(201, 169, 92, 0.2);
+      border-radius: 7px;
+      pointer-events: none;
+    }
+
+    .schedule-title {
+      font-family: 'Playfair Display', 'Gowun Batang', serif;
+      font-size: 26px;
+      color: #d4af37;
+      margin: 0 0 20px 0;
+      text-align: left;
+    }
+
+    .schedule-items {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.0;
+    }
+
+    .schedule-item {
+      display: flex;
+      margin-bottom: 2px;
+      align-items: flex-start;
+    }
+
+    .schedule-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .schedule-label {
+      min-width: 80px;
+      font-weight: 500;
+      text-align: left;
+      margin-right: 20px;
+      color: #c9a95c;
+      font-size: 18px;
+    }
+
+    .schedule-value {
+      flex: 1;
+      text-align: left;
+      font-size: 18px;
+    }
+
+    .location-container {
+      width: 100%;
+    }
+
+    .location {
+      background-color: rgba(10, 16, 41, 0.5);
+      padding: 30px;
+      border: 1px solid #c9a95c;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .location:before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border: 1px solid rgba(201, 169, 92, 0.2);
+      border-radius: 7px;
+      pointer-events: none;
+    }
+
+    .location-title {
+      font-family: 'Playfair Display', 'Gowun Batang', serif;
+      font-size: 26px;
+      color: #d4af37;
+      margin: 0 0 20px 0;
+      text-align: left;
+    }
+
+    .location-content {
+      font-size: 18px;
+      color: #f1e2b9;
+      text-align: left;
+      line-height: 1.0;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .location-content p {
+      margin-bottom: 2px;
+    }
+
+    .location-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .map-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 5px auto;
+    }
+
+    .map-image {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .map-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 35px;
+    }
+
+    .map-button {
+      display: inline-block;
+      padding: 14px 30px;
+      background-color: rgba(212, 175, 55, 0.9);
+      color: #0a1029;
+      border: none;
+      border-radius: 3px;
+      font-size: 18px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+      letter-spacing: 1px;
+      text-decoration: none;
+    }
+
+    .map-button:hover {
+      background-color: #e5c158;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.35);
+    }
+
+    #sparkleContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .bottom-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+      width: 160px;
+    }
+
+    .bottom-ornament .line {
+      flex: 1;
+      height: 1px;
+      background-color: rgba(212, 175, 55, 0.4);
+    }
+
+    .bottom-ornament .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: #d4af37;
+      margin: 0 4px;
+    }
+
+    /* 간단한 페이드 전환 */
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 1페이지: 표지 -->
+<div class="slide1-container" id="slide1">
+  <div class="background"></div>
+  <div id="starryNight"></div>
+
+  <div class="content">
+    <p class="header">2025 CAFE24 BUCHEON CENTER</p>
+  </div>
+
+  <div class="main-image">
+    <img src="https://www.genspark.ai/api/files/s/FmxxUoEq?cache_control=3600" alt="송년의 밤 초대장">
+  </div>
+
+  <div class="content">
+    <p class="title">송년의 밤</p>
+    <p class="subtitle">초대합니다</p>
+  </div>
+
+  <div class="cta">
+    <p>화면을 터치하여 초대장을 열어주세요 :)</p>
+  </div>
+</div>
+
+<!-- 2페이지: 본문 + 약도 -->
+<div class="slide2-container hidden" id="slide2">
+  <div class="background"></div>
+  <div id="sparkleContainer"></div>
+  <div class="elegant-border"></div>
+  <div class="inner-border"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="content2">
+    <div class="header-ornament">
+      <div class="header-line"></div>
+      <div class="header-diamond"></div>
+      <div class="header-line"></div>
+    </div>
+
+    <p class="title2">
+      따뜻한 연말을<br/>
+      함께할 소중한 분들을<br/>
+      <strong style="font-weight: 700; font-size: 110%;">부천센터 송년회 밤에</strong><br/>
+      초대합니다
+    </p>
+
+    <div class="message">
+      <p>한 해 동안 함께해주신 노력과 헌신에 깊이 감사드립니다.</p>
+      <p>2025년 12월 19일, 따뜻한 식사와 함께<br/>올 한 해를 마무리하는 자리에 귀한 발걸음 함께 해주시면 감사하겠습니다.</p>
+    </div>
+
+    <div class="info-container">
+      <div class="schedule-container">
+        <div class="schedule">
+          <p class="schedule-title">송년회 안내</p>
+          <div class="schedule-items">
+            <div class="schedule-item">
+              <p class="schedule-label">Date</p>
+              <p class="schedule-value">2025년 12월 19일(금)</p>
+            </div>
+            <div class="schedule-item">
+              <p class="schedule-label">Time</p>
+              <p class="schedule-value">PM 06:30</p>
+            </div>
+            <div class="schedule-item">
+              <p class="schedule-label">Venue</p>
+              <p class="schedule-value">부천 CECECE (쎄쎄쎄)</p>
+            </div>
+            <div class="schedule-item">
+              <p class="schedule-label">Dress Code</p>
+              <p class="schedule-value">Touch of Red</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="location-container">
+        <div class="location">
+          <p class="location-title">오시는 길</p>
+          <div class="map-container">
+            <img class="map-image" src="https://www.genspark.ai/api/files/s/sLBQl4mS" alt="부천 CECECE 약도">
+          </div>
+          <div class="location-content">
+            <p>주소: 위브 더스테이트 201동 3층 (신흥로 190)</p>
+            <p>▶ 7호선 신중동역 ②번 출구 도보 1분 거리</p>
+            <p>▶ 자가이용 시 본 건물, 단지내 지하 주차장 이용 (2시간 무료)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-buttons">
+      <a class="map-button" href="https://naver.me/5chy75RN" target="_blank">네이버 지도</a>
+      <a class="map-button" href="https://place.map.kakao.com/15802181" target="_blank">카카오 지도</a>
+    </div>
+
+    <div class="bottom-ornament">
+      <div class="line"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="line"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    /* ===== 1페이지: 별 생성 ===== */
+    const starContainer = document.getElementById('starryNight');
+    const maxStars = 150;
+    const stars = [];
+
+    function createStar() {
+      const star = document.createElement('div');
+      star.className = 'star';
+
+      const size = Math.random() * 3 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+
+      const brightness = Math.floor(Math.random() * 30) + 225;
+      star.style.backgroundColor = 'rgb(' + brightness + ',' + brightness + ',' + brightness + ')';
+
+      const animationDuration = Math.random() * 5 + 3;
+      star.style.animation = 'twinkle ' + animationDuration + 's infinite ease-in-out';
+
+      const animationDelay = Math.random() * 5;
+      star.style.animationDelay = animationDelay + 's';
+
+      starContainer.appendChild(star);
+      stars.push(star);
+    }
+
+    for (let i = 0; i < maxStars; i++) {
+      createStar();
+    }
+
+    /* ===== 2페이지: 반짝이 점 생성 ===== */
+    const sparkleContainer = document.getElementById('sparkleContainer');
+
+    function createSparkle() {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+
+      const size = Math.random() * 5 + 2;
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+      sparkle.style.left = Math.random() * 100 + '%';
+      sparkle.style.top = Math.random() * 100 + '%';
+
+      sparkleContainer.appendChild(sparkle);
+
+      setTimeout(() => {
+        sparkle.style.transition = 'opacity 1.8s ease-in-out';
+        sparkle.style.opacity = '0.7';
+
+        setTimeout(() => {
+          sparkle.style.opacity = '0';
+          setTimeout(() => {
+            if (sparkle.parentNode) {
+              sparkle.parentNode.removeChild(sparkle);
+            }
+          }, 1800);
+        }, 1800);
+      }, 10);
+    }
+
+    setInterval(createSparkle, 270);
+
+    /* ===== 화면 전환: 1페이지 클릭 → 2페이지 ===== */
+    const slide1 = document.getElementById('slide1');
+    const slide2 = document.getElementById('slide2');
+
+    slide2.classList.add('hidden');
+
+    function goToSlide2() {
+      slide1.classList.add('fade-out');
+      setTimeout(function() {
+        slide1.style.display = 'none';
+        slide2.classList.remove('hidden');
+        slide2.classList.add('visible', 'fade-in');
+      }, 400);
+    }
+
+    slide1.addEventListener('click', goToSlide2);
+    slide1.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      goToSlide2();
+    }, { passive: false });
+  });
+</script>
+
+</body>
+</html>
