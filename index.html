@@ -4,25 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- ★ 미리보기 제목 / 설명 -->
   <title>2025 카페24 부천센터 송년의 밤 초대장</title>
   <meta name="description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
 
-  <!-- ★ Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="2025 카페24 부천센터 송년의 밤 초대장">
   <meta property="og:description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
   <meta property="og:url" content="https://seosehee.github.io/year-end-invite/">
   <meta property="og:image" content="https://seosehee.github.io/year-end-invite/e.png">
 
-  <!-- ★ Twitter -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="2025 카페24 부천센터 송년의 밤 초대장">
   <meta name="twitter:description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
   <meta name="twitter:image" content="https://seosehee.github.io/year-end-invite/e.png">
-  <title>2025 CAFE24 BUCHEON CENTER 송년의 밤</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Nanum+Myeongjo:wght@400;700;800&family=Gowun+Batang:wght@400;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     html, body {
@@ -41,11 +37,9 @@
       display: flex;
       justify-content: center;
       align-items: stretch;
-      /* ★ 3D 페이지 넘김을 위한 원근감 */
-      perspective: 1200px;
+      perspective: 2000px;
     }
 
-    /* ===== 1페이지 (표지) ===== */
     .slide1-container {
       position: relative;
       width: 100%;
@@ -55,10 +49,8 @@
       overflow: hidden;
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
-
-      /* ★ 페이지 넘김용 설정 */
-      transform-origin: left center;      /* 왼쪽을 축으로 넘기는 느낌 */
       backface-visibility: hidden;
+      transform-origin: 100% 100%;
     }
 
     .background-1 {
@@ -74,6 +66,13 @@
       opacity: 0;
       z-index: 2;
       box-shadow: 0 0 4px 1px #fff;
+    }
+
+    #starryNight {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
     }
 
     .content-1 {
@@ -106,26 +105,6 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
-    .title {
-      font-family: 'Nanum Myeongjo', serif;
-      font-size: 72px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      background: linear-gradient(to right, #c9a95c 0%, #f1e2b9 50%, #c9a95c 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 2px 15px rgba(201, 169, 92, 0.2);
-    }
-
-    .subtitle {
-      font-family: 'Nanum Myeongjo', serif;
-      font-size: 40px;
-      font-weight: 700;
-      color: #d4af37;
-      margin-bottom: 40px;
-    }
-
     .cta {
       position: absolute;
       left: 0;
@@ -139,11 +118,21 @@
       animation: pulse 2s infinite;
       padding: 0 16px;
       box-sizing: border-box;
-      cursor: pointer;
     }
 
     .cta-text {
       display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(201, 169, 92, 0.6);
+      background: rgba(5, 7, 26, 0.7);
+      backdrop-filter: blur(4px);
+      cursor: pointer;
+    }
+
+    .cta-text:active {
+      transform: scale(0.97);
+      opacity: 0.9;
     }
 
     @keyframes pulse {
@@ -158,35 +147,28 @@
       100% { opacity: 0; transform: scale(0.8); }
     }
 
-    #starryNight {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    /* ★ 책장 넘기기 느낌 애니메이션 */
     @keyframes pageFlip {
       0% {
-        transform: rotateY(0deg);
-        box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+        transform: rotateY(0deg) rotateZ(0deg);
+        box-shadow: 0 0 0 rgba(0,0,0,0.0);
+        opacity: 1;
       }
       40% {
-        transform: rotateY(-20deg);
-        box-shadow: -20px 0 40px rgba(0, 0, 0, 0.6);
+        transform: rotateY(-35deg) rotateZ(1deg);
+        box-shadow: -20px 0 25px rgba(0,0,0,0.5);
+        opacity: 1;
       }
       100% {
-        transform: rotateY(-100deg);
-        box-shadow: -40px 0 60px rgba(0, 0, 0, 0.8);
+        transform: rotateY(-100deg) rotateZ(2deg);
+        box-shadow: -40px 0 40px rgba(0,0,0,0.7);
         opacity: 0;
       }
     }
 
-    .slide1-container.page-flip {
-      animation: pageFlip 0.7s ease-in-out forwards;
+    .slide1-container.flip-out {
+      animation: pageFlip 1.4s ease-in-out forwards;
     }
 
-    /* ===== 2페이지 (본문) ===== */
     .slide2-container {
       position: relative;
       width: 100%;
@@ -197,15 +179,13 @@
       font-family: 'Noto Sans KR', sans-serif;
       color: #fff;
       display: none;
-      opacity: 0;
-      transition: opacity 0.6s ease;
+      backface-visibility: hidden;
     }
 
     .slide2-container.visible {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      opacity: 1;
     }
 
     .background-2 {
@@ -221,28 +201,6 @@
       z-index: 5;
     }
 
-    .elegant-border {
-      position: absolute;
-      top: 40px;
-      left: 40px;
-      right: 40px;
-      bottom: 40px;
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .inner-border {
-      position: absolute;
-      top: 60px;
-      left: 60px;
-      right: 60px;
-      bottom: 60px;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      z-index: 4;
-      pointer-events: none;
-    }
-
     .content2 {
       position: relative;
       z-index: 20;
@@ -254,17 +212,13 @@
     }
 
     .title2 {
-      font-family: 'Playfair Display', 'Gowun Batang', serif;
+      font-family: 'Playfair Display', serif;
       font-size: 30px;
       font-weight: 700;
       color: #d4af37;
       margin-bottom: 24px;
       line-height: 1.5;
       letter-spacing: 0.5px;
-    }
-
-    .title2 strong {
-      font-size: 110%;
     }
 
     .message {
@@ -275,7 +229,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* ★ 인사 문구 3줄 간격 4px */
     .message p {
       margin: 0 0 4px 0;
     }
@@ -365,25 +318,6 @@
       box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
     }
 
-    /* ★ 하단 선+점 장식 숨기기 */
-    .bottom-ornament {
-      display: none;
-    }
-
-    .bottom-ornament .line {
-      flex: 1;
-      height: 1px;
-      background-color: rgba(212, 175, 55, 0.4);
-    }
-
-    .bottom-ornament .dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background-color: #d4af37;
-      margin: 0 4px;
-    }
-
     @media (max-width: 768px) {
       .content-1 {
         padding: 32px 20px;
@@ -396,15 +330,6 @@
 
       .main-image {
         margin-top: 40px;
-      }
-
-      .title {
-        font-size: 40px;
-      }
-
-      .subtitle {
-        font-size: 24px;
-        margin-bottom: 24px;
       }
 
       .cta {
@@ -451,7 +376,6 @@
       }
     }
 
-    /* 네온 텍스트 */
     .neon-red {
       color: #ff4d4d;
       text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff1a1a, 0 0 20px #ff1a1a;
@@ -468,7 +392,6 @@
 </head>
 <body>
 <div class="page-wrapper">
-  <!-- 1페이지 -->
   <div class="slide1-container" id="slide1">
     <div class="background-1"></div>
     <div id="starryNight"></div>
@@ -478,21 +401,17 @@
     </div>
 
     <div class="main-image">
-      <img src="a.png" alt="송년의 밤 메인 이미지">
+      <img src="a.png" alt="송년의 밤 초대장 메인 이미지">
     </div>
 
     <div class="cta">
-      <!-- ✅ 여기 텍스트만 클릭/터치 시 페이지 이동 -->
-      <p id="ctaText" class="cta-text">여기를 터치하여 초대장을 열어주세요 :)</p>
+      <p class="cta-text">여기를 터치하여 초대장을 열어주세요 :)</p>
     </div>
   </div>
 
-  <!-- 2페이지 -->
   <div class="slide2-container" id="slide2">
     <div class="background-2"></div>
     <div id="sparkleContainer"></div>
-    <div class="elegant-border"></div>
-    <div class="inner-border"></div>
 
     <div class="content2">
       <p class="title2">
@@ -534,12 +453,10 @@
       <div class="location">
         <p class="location-title">오시는 길</p>
         <img class="map-image" src="c.png" alt="부천 CECECE 약도" />
-
         <div class="map-buttons">
           <a class="map-button" href="https://naver.me/5chy75RN" target="_blank">네이버 지도</a>
           <a class="map-button" href="https://place.map.kakao.com/15802181" target="_blank">카카오 지도</a>
         </div>
-
         <ul class="info-list">
           <li class="info-item">
             <span class="info-label">주소</span>
@@ -595,14 +512,11 @@
       sparkle.style.top = Math.random() * 100 + '%';
       sparkle.style.backgroundColor = '#d4af37';
       sparkleContainer.appendChild(sparkle);
-
       setTimeout(() => {
         sparkle.style.transition = 'opacity 1.8s ease-in-out';
         sparkle.style.opacity = '0.7';
-
         setTimeout(() => {
           sparkle.style.opacity = '0';
-
           setTimeout(() => {
             if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
           }, 600);
@@ -614,22 +528,18 @@
 
     const slide1 = document.getElementById('slide1');
     const slide2 = document.getElementById('slide2');
-    const ctaText = document.getElementById('ctaText');
+    const ctaText = document.querySelector('.cta-text');
 
     function goToSlide2() {
-      if (slide2.classList.contains('visible')) return;
+      slide1.classList.add('flip-out');
 
-      // ★ 책장 넘기기 애니메이션 시작
-      slide1.classList.add('page-flip');
-
-      // 1페이지가 돌아가는 동안 약간 기다렸다가 2페이지 등장
       setTimeout(() => {
         slide1.style.display = 'none';
         slide2.classList.add('visible');
-      }, 500); // 0.7s 중간 시점에 맞춰서
+        window.scrollTo(0, 0);
+      }, 1400);
     }
 
-    // ✅ 텍스트만 클릭/터치 시 이동
     ctaText.addEventListener('click', goToSlide2);
     ctaText.addEventListener('touchstart', function (e) {
       e.preventDefault();
