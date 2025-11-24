@@ -43,7 +43,10 @@
 
     /* ===== 1페이지 ===== */
     .slide1-container {
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
       width: 100%;
       max-width: 1080px;
       min-height: 100vh;
@@ -148,20 +151,24 @@
       100% { opacity: 0; transform: scale(0.8); }
     }
 
-    /* PPT 벗겨내기 느낌: 오른쪽으로 쓱 벗겨지는 효과 */
-    @keyframes wipeOut {
-      0% {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(100%);
-        opacity: 1;
-      }
+    /* PPT "이동" 느낌: 1페이지 왼쪽으로 나가고, 2페이지 오른쪽에서 들어오기 */
+    @keyframes slide1MoveOutLeft {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(-150%); }
     }
 
-    .slide1-container.wipe-out {
-      animation: wipeOut 1.2s ease-in-out forwards;
+    @keyframes slide2MoveInLeft {
+      from { transform: translateX(50%); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .slide1-container.move-out-left {
+      animation: slide1MoveOutLeft 1.0s ease-in-out forwards;
+    }
+
+    .slide2-container.move-in-left {
+      display: flex;
+      animation: slide2MoveInLeft 1.0s ease-in-out forwards;
     }
 
     /* ===== 2페이지 ===== */
@@ -169,7 +176,7 @@
       position: absolute;
       top: 0;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(50%);  /* 처음엔 오른쪽 밖에 대기 */
       width: 100%;
       max-width: 1080px;
       min-height: 100vh;
@@ -179,12 +186,6 @@
       color: #fff;
       display: none;
       z-index: 5;
-    }
-
-    .slide2-container.visible {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .background-2 {
@@ -229,7 +230,7 @@
     }
 
     .message p {
-      margin: 0 0 4px 0; /* 문단 간 간격 4px */
+      margin: 0 0 4px 0;  /* 문단 간격 4px */
     }
 
     .schedule,
@@ -536,10 +537,12 @@
       if (isTransitioning) return;
       isTransitioning = true;
 
-      slide2.classList.add('visible');
+      // 두 번째 페이지를 맨 위에서 시작
       window.scrollTo(0, 0);
 
-      slide1.classList.add('wipe-out');
+      slide2.classList.add('move-in-left');
+      slide1.classList.add('move-out-left');
+
       slide1.addEventListener('animationend', () => {
         slide1.style.display = 'none';
       }, { once: true });
