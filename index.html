@@ -3,560 +3,292 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>2025 카페24 부천센터 송년의 밤 초대장</title>
-  <meta name="description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="2025 카페24 부천센터 송년의 밤 초대장">
-  <meta property="og:description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
-  <meta property="og:url" content="https://seosehee.github.io/year-end-invite/">
-  <meta property="og:image" content="https://seosehee.github.io/year-end-invite/e.png">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="2025 카페24 부천센터 송년의 밤 초대장">
-  <meta name="twitter:description" content="2025년 12월 19일, 부천센터 송년회 밤에 초대합니다.">
-  <meta name="twitter:image" content="https://seosehee.github.io/year-end-invite/e.png">
-
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
+  <title>부천센터 송년회 초대장</title>
   <style>
-    html, body {
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #b30024;
+      color: #222;
+    }
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .page {
+      width: 100%;
+      max-width: 480px;
+      min-height: 640px;
+      border-radius: 24px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+      overflow: hidden;
+      background: #b30024;
+      position: relative;
+      opacity: 0;
+      transform: translateX(40px);
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .page.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .page-1-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/mnt/data/main.jpg'); /* 👉 업로드한 이미지를 main.jpg로 저장해서 index.html과 같은 폴더에 두세요 */
+      background-size: cover;
+      background-position: center;
+      filter: drop-shadow(0 12px 25px rgba(0,0,0,0.4));
+    }
+    .page-1-overlay {
+      position: relative;
+      z-index: 1;
       width: 100%;
       height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-      background: #000;
-    }
-
-    .page-wrapper {
-      width: 100%;
-      min-height: 100vh;
-      display: block;
-      position: relative;
-      overflow-x: hidden; /* 세로 스크롤은 허용 */
-    }
-
-    /* ===== 1페이지 ===== */
-    .slide1-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 auto;
-      width: 100%;
-      max-width: 1080px;
-      min-height: 100vh;
-      background-color: #05071a;
-      overflow: hidden;
-      font-family: 'Noto Sans KR', sans-serif;
-      color: #fff;
-      z-index: 10;
-      transform: translateX(0);
-    }
-
-    .background-1 {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background-color: #05071a;
-    }
-
-    .star {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0;
-      z-index: 2;
-      box-shadow: 0 0 4px 1px #fff;
-    }
-
-    #starryNight {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .content-1 {
-      position: relative;
-      z-index: 20;
-      text-align: center;
-      padding: 40px 8%;
-    }
-
-    .header {
-      font-size: 32px;
-      font-weight: 300;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      color: #c9a95c;
-      margin-top: 80px;
-    }
-
-    .main-image {
-      position: relative;
-      width: 100%;
-      margin-top: 80px;
-      z-index: 10;
-      text-align: center;
-    }
-
-    .main-image img {
-      max-width: 90%;
-      height: auto;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .cta {
-      position: absolute;
-      left: 0;
-      bottom: 60px;
-      width: 100%;
-      text-align: center;
-      font-size: 20px;
-      color: #c9a95c;
-      opacity: 0.8;
-      z-index: 30;
-      animation: pulse 2s infinite;
-      padding: 0 16px;
-      box-sizing: border-box;
-    }
-
-    .cta-text {
-      display: inline-block;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(201, 169, 92, 0.6);
-      background: rgba(5, 7, 26, 0.7);
-      backdrop-filter: blur(4px);
-      cursor: pointer;
-    }
-
-    .cta-text:active {
-      transform: scale(0.97);
-      opacity: 0.9;
-    }
-
-    @keyframes pulse {
-      0%   { opacity: 0.5; }
-      50%  { opacity: 1; }
-      100% { opacity: 0.5; }
-    }
-
-    @keyframes twinkle {
-      0%   { opacity: 0;   transform: scale(0.8); }
-      50%  { opacity: 0.8; transform: scale(1.1); }
-      100% { opacity: 0;   transform: scale(0.8); }
-    }
-
-    /* PPT "이동" 느낌: 1페이지 왼쪽으로, 2페이지 오른쪽에서 */
-    @keyframes slide1MoveOutLeft {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-100%); }
-    }
-
-    @keyframes slide2MoveInLeft {
-      from { transform: translateX(100%); }
-      to   { transform: translateX(0); }
-    }
-
-    .slide1-container.move-out-left {
-      animation: slide1MoveOutLeft 0.9s ease-in-out forwards;
-    }
-
-    .slide2-container.move-in-left {
-      animation: slide2MoveInLeft 0.9s ease-in-out forwards;
-    }
-
-    /* ===== 2페이지 ===== */
-    .slide2-container {
-      position: relative; /* 문서 흐름 안에 있게 */
-      margin: 0 auto;
-      width: 100%;
-      max-width: 1080px;
-      min-height: 100vh;
-      background-color: #0a1029;
-      overflow: hidden;
-      font-family: 'Noto Sans KR', sans-serif;
-      color: #fff;
-      z-index: 5;
-      transform: translateX(100%); /* 처음에는 오른쪽 바깥에 대기 */
-    }
-
-    .background-2 {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-    }
-
-    #sparkleContainer {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .content2 {
-      position: relative;
-      z-index: 20;
-      text-align: center;
-      padding: 56px 8%;
-      max-width: 820px;
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-
-    .title2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 30px;
-      font-weight: 700;
-      color: #d4af37;
-      margin-bottom: 24px;
-      line-height: 1.5;
-      letter-spacing: 0.5px;
-    }
-
-    .message {
-      font-size: 18px;
-      line-height: 1.7;
-      margin-bottom: 40px;
-      color: #f1e2b9;
-      letter-spacing: 0.3px;
-    }
-
-    .message p {
-      margin: 0 0 4px 0; /* 문단 간격 4px */
-    }
-
-    .schedule,
-    .location {
-      background-color: rgba(10, 16, 41, 0.5);
-      padding: 26px;
-      border: 1px solid #c9a95c;
-      border-radius: 5px;
-      margin-bottom: 20px;
-      position: relative;
-      text-align: left;
-      box-sizing: border-box;
-    }
-
-    .schedule-title,
-    .location-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      color: #d4af37;
-      margin: 0 0 16px 0;
-    }
-
-    .info-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .info-item {
-      display: flex;
-      align-items: flex-start;
-      font-size: 16px;
-      margin-bottom: 6px;
-      line-height: 1.6;
-    }
-
-    .info-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .info-label {
-      min-width: 90px;
-      margin-right: 16px;
-      font-weight: 500;
-      color: #c9a95c;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .info-text {
-      flex: 1;
-      color: #f1e2b9;
-      text-align: left;
-    }
-
-    .map-image {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .map-buttons {
       display: flex;
       justify-content: center;
-      gap: 16px;
-      margin-top: 26px;
-      flex-wrap: wrap;
+      align-items: center;
+      padding: 32px 24px 40px;
     }
-
-    .map-button {
-      padding: 10px 24px;
-      background-color: rgba(212, 175, 55, 0.9);
-      color: #0a1029;
-      border-radius: 4px;
-      text-decoration: none;
+    .text-card {
+      width: 100%;
+      max-width: 360px;
+      background: rgba(255, 252, 246, 0.96);
+      border-radius: 18px;
+      padding: 28px 22px 24px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: #c0202d;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ff3b5e;
+      box-shadow: 0 0 6px rgba(255,59,94,0.7);
+    }
+    .headline {
+      font-size: 20px;
+      line-height: 1.5;
+      font-weight: 700;
+      color: #b11226;
+      margin-bottom: 10px;
+    }
+    .headline span {
+      white-space: nowrap;
+    }
+    .sub {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .cta-button {
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 16px;
       font-size: 15px;
       font-weight: 600;
-      letter-spacing: 0.8px;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6376, #ffb15c);
+      color: #fffdf7;
+      box-shadow: 0 9px 18px rgba(175, 0, 28, 0.45);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .cta-button span.icon {
+      font-size: 16px;
+      transform: translateY(1px);
+    }
+    .cta-caption {
+      font-size: 11px;
+      color: rgba(0,0,0,0.45);
+      margin-top: 10px;
+      text-align: center;
     }
 
-    .map-button:hover {
-      background-color: #e5c158;
-      box-shadow: 0 4px 18px rgba(212, 175, 55, 0.35);
+    /* 2번 페이지 */
+    .page-2-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at top, #ffe7e0, #b30024 55%);
+      padding: 32px 24px 32px;
+      color: #fff7f2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(0,0,0,0.28);
+      backdrop-filter: blur(8px);
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffda7b;
+      box-shadow: 0 0 6px rgba(255,218,123,0.8);
+    }
+    .title-main {
+      font-size: 22px;
+      line-height: 1.5;
+      font-weight: 700;
+      margin: 8px 0 18px;
+    }
+    .body-text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #ffe9df;
+    }
+    .info-box {
+      margin-top: 16px;
+      padding: 14px 14px 13px;
+      border-radius: 16px;
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .info-box h3 {
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: #ffe6bb;
+    }
+    .info-box ul {
+      list-style: none;
+    }
+    .info-box li + li {
+      margin-top: 2px;
+    }
+    .footer-text {
+      font-size: 11px;
+      color: rgba(255,240,230,0.8);
+      text-align: right;
+    }
+    .back-hint {
+      font-size: 11px;
+      opacity: 0.75;
+      margin-top: 6px;
     }
 
-    @media (max-width: 768px) {
-      .content-1 {
-        padding: 32px 20px;
+    @media (max-width: 480px) {
+      .page-wrapper {
+        padding: 16px;
       }
-
-      .header {
-        font-size: 20px;
-        margin-top: 40px;
+      .page {
+        min-height: 580px;
       }
-
-      .main-image {
-        margin-top: 40px;
-      }
-
-      .cta {
-        font-size: 14px;
-        bottom: 30px;
-      }
-
-      .content2 {
-        padding: 40px 20px;
-      }
-
-      .title2 {
-        font-size: 22px;
-      }
-
-      .message {
-        font-size: 14px;
-        margin-bottom: 28px;
-      }
-
-      .schedule,
-      .location {
-        padding: 20px;
-      }
-
-      .schedule-title,
-      .location-title {
+      .headline {
         font-size: 18px;
       }
-
-      .info-item {
-        font-size: 14px;
-        flex-direction: row;
+      .title-main {
+        font-size: 20px;
       }
-
-      .info-label {
-        min-width: 78px;
-        margin-right: 10px;
-      }
-
-      .map-button {
-        font-size: 13px;
-        padding: 8px 18px;
-      }
-    }
-
-    .neon-red {
-      color: #ff4d4d;
-      text-shadow: 0 0 5px #ff4d4d, 0 0 10px #ff1a1a, 0 0 20px #ff1a1a;
-      animation: neonBlink 1.8s infinite alternate;
-      font-weight: 600;
-    }
-
-    @keyframes neonBlink {
-      0%   { opacity: 0.7;  text-shadow: 0 0 8px #ff6666, 0 0 15px #ff3333; }
-      50%  { opacity: 1;    text-shadow: 0 0 12px #ff1a1a, 0 0 25px #ff1a1a; }
-      100% { opacity: 0.75; text-shadow: 0 0 6px #ff4d4d, 0 0 12px #ff1a1a; }
     }
   </style>
 </head>
 <body>
-<div class="page-wrapper">
-  <!-- 1페이지 -->
-  <div class="slide1-container" id="slide1">
-    <div class="background-1"></div>
-    <div id="starryNight"></div>
-
-    <div class="content-1">
-      <p class="header">CAFE24 BUCHEON CENTER</p>
-    </div>
-
-    <div class="main-image">
-      <img src="a.png" alt="송년의 밤 초대장 메인 이미지">
-    </div>
-
-    <div class="cta">
-      <p class="cta-text">여기를 터치하여 초대장을 열어주세요 : )</p>
-    </div>
-  </div>
-
-  <!-- 2페이지 -->
-  <div class="slide2-container" id="slide2">
-    <div class="background-2"></div>
-    <div id="sparkleContainer"></div>
-
-    <div class="content2">
-      <p class="title2">
-        부천센터 송년의 밤,<br />
-        함께해 주실 소중한 분들을<br />
-        기다립니다
-      </p>
-
-      <div class="message">
-        <p>한 해 동안 함께해 주신 노고에 감사드립니다.</p>
-        <p>감사의 마음을 담은 따뜻한 식사 자리에서</p>
-        <p>함께 한 해를 마무리하고자 합니다.</p>
-      </div>
-
-      <div class="schedule">
-        <p class="schedule-title">송년회 안내</p>
-        <ul class="info-list">
-          <li class="info-item">
-            <span class="info-label">Date</span>
-            <span class="info-text">2025년 12월 19일(금)</span>
-          </li>
-          <li class="info-item">
-            <span class="info-label">Time</span>
-            <span class="info-text">PM 06:30</span>
-          </li>
-          <li class="info-item">
-            <span class="info-label">Venue</span>
-            <span class="info-text">부천 CECECE (쎄쎄쎄)</span>
-          </li>
-          <li class="info-item">
-            <span class="info-label">Dress Code</span>
-            <span class="info-text">
-              <span class="neon-red">레드 포인트</span> 한스푼 담아주세요.
-            </span>
-          </li>
-        </ul>
-      </div>
-
-      <div class="location">
-        <p class="location-title">오시는 길</p>
-        <img class="map-image" src="c.png" alt="부천 CECECE 약도" />
-        <div class="map-buttons">
-          <a class="map-button" href="https://naver.me/5chy75RN" target="_blank">네이버 지도</a>
-          <a class="map-button" href="https://place.map.kakao.com/15802181" target="_blank">카카오 지도</a>
+  <div class="page-wrapper">
+    <!-- 1번 페이지 -->
+    <section id="page-1" class="page active">
+      <div class="page-1-bg"></div>
+      <div class="page-1-overlay">
+        <div class="text-card">
+          <div class="tag">
+            <span class="tag-dot"></span>
+            <span>2025 CAFE24 BUCHEON CENTER</span>
+          </div>
+          <div class="headline">
+            <span>고객 만족은 잠시 OFF,</span><br />
+            <span>우리의 만족은 FULL ON 하는</span><br />
+            <span>부천센터 송년회에 초대합니다.</span>
+          </div>
+          <p class="sub">
+            올 한 해 고생한 우리를 위해 준비한 연말 저녁입니다.<br>
+            잠시 일은 내려두고, 웃음과 수다로 가득 채워볼까요?
+          </p>
+          <button id="openInviteBtn" class="cta-button" type="button">
+            <span>여기를 터치해서 초대장을 열어주세요</span>
+            <span class="icon">➜</span>
+          </button>
+          <p class="cta-caption">* 버튼(문구)을 눌러 2번 페이지로 이동합니다.</p>
         </div>
-        <P></P>
-        <ul class="info-list">
-          <li class="info-item">
-            <span class="info-label">주소</span>
-            <span class="info-text">위브 더스테이트 201동 3층 (신흥로 190)</span>
-          </li>
-          <li class="info-item">
-            <span class="info-label">지하철</span>
-            <span class="info-text">7호선 신중동역 ②번 출구 도보 1분</span>
-          </li>
-          <li class="info-item">
-            <span class="info-label">주차</span>
-            <span class="info-text">건물/단지 내 지하 주차장 (2시간 무료)</span>
-          </li>
-        </ul>
       </div>
-    </div>
+    </section>
+
+    <!-- 2번 페이지 (내용은 이후에 자유롭게 수정해서 쓰면 됩니다) -->
+    <section id="page-2" class="page">
+      <div class="page-2-inner">
+        <div>
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Slack 알림 대신 웃음 알림이 울리는 시간</span>
+          </div>
+          <h1 class="title-main">우리의 만족 모드, 이제 진짜 ON!</h1>
+          <p class="body-text">
+            하루 동안 쌓였던 티켓과 메일은 잠시 잊고,<br>
+            맛있는 음식과 편안한 대화로만 채우는 부천센터의 연말밤입니다.<br><br>
+            조용히 웃어도, 박장대소를 해도 괜찮은 시간.<br>
+            각자의 방식으로 2025년을 마무리하러 오세요.
+          </p>
+          <div class="info-box">
+            <h3>송년회 일정 안내</h3>
+            <ul>
+              <li>■ 일자 : 2025년 12월 19일(금) 늦은 6시</li>
+              <li>■ 장소 : 부천 CECECE (쎄쎄쎄)</li>
+              <li>■ 드레스코드 : 의상·악세서리 어디든 <strong>레드 한 스푼</strong></li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <p class="footer-text">
+            올 한 해, 누구보다 바빴던 우리에게 보내는 작은 선물 같은 밤.
+          </p>
+          <p class="back-hint">※ 1번 화면으로 다시 돌아가고 싶다면 브라우저 뒤로가기를 사용해주세요.</p>
+        </div>
+      </div>
+    </section>
   </div>
-</div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const starContainer = document.getElementById('starryNight');
-    const maxStars = 150;
+  <script>
+    const openInviteBtn = document.getElementById('openInviteBtn');
+    const page1 = document.getElementById('page-1');
+    const page2 = document.getElementById('page-2');
 
-    function createStar() {
-      const star = document.createElement('div');
-      star.className = 'star';
-      const size = Math.random() * 3 + 1;
-      star.style.width = size + 'px';
-      star.style.height = size + 'px';
-      star.style.left = Math.random() * 100 + '%';
-      star.style.top = Math.random() * 100 + '%';
-      const brightness = Math.floor(Math.random() * 30) + 225;
-      star.style.backgroundColor = 'rgb(' + brightness + ',' + brightness + ',' + brightness + ')';
-      const duration = Math.random() * 5 + 3;
-      star.style.animation = 'twinkle ' + duration + 's infinite ease-in-out';
-      starContainer.appendChild(star);
-    }
-
-    for (let i = 0; i < maxStars; i++) {
-      createStar();
-    }
-
-    const sparkleContainer = document.getElementById('sparkleContainer');
-
-    function createSparkle() {
-      const sparkle = document.createElement('div');
-      sparkle.className = 'star';
-      const size = Math.random() * 4 + 1;
-      sparkle.style.width = size + 'px';
-      sparkle.style.height = size + 'px';
-      sparkle.style.left = Math.random() * 100 + '%';
-      sparkle.style.top = Math.random() * 100 + '%';
-      sparkle.style.backgroundColor = '#d4af37';
-      sparkleContainer.appendChild(sparkle);
-      setTimeout(() => {
-        sparkle.style.transition = 'opacity 1.8s ease-in-out';
-        sparkle.style.opacity = '0.7';
-        setTimeout(() => {
-          sparkle.style.opacity = '0';
-          setTimeout(() => {
-            if (sparkle.parentNode) sparkle.parentNode.removeChild(sparkle);
-          }, 600);
-        }, 1200);
-      }, 20);
-    }
-
-    setInterval(createSparkle, 300);
-
-    const slide1 = document.getElementById('slide1');
-    const slide2 = document.getElementById('slide2');
-    const ctaText = document.querySelector('.cta-text');
-    let isTransitioning = false;
-
-    function goToSlide2() {
-      if (isTransitioning) return;
-      isTransitioning = true;
-
-      // 두 번째 페이지는 항상 최상단부터 보이게
-      window.scrollTo(0, 0);
-
-      slide1.classList.add('move-out-left');
-      slide2.classList.add('move-in-left');
-
-      slide1.addEventListener('animationend', () => {
-        slide1.style.display = 'none';
-      }, { once: true });
-    }
-
-    ctaText.addEventListener('click', goToSlide2);
-    ctaText.addEventListener('touchstart', function (e) {
-      e.preventDefault();
-      goToSlide2();
-    }, { passive: false });
-  });
-</script>
+    openInviteBtn.addEventListener('click', () => {
+      page1.classList.remove('active');
+      page2.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
-
-
-
-
-
