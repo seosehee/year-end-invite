@@ -48,7 +48,7 @@
       display: block;
     }
 
-    /* COME JOIN US 버튼 */
+    /* 1번 이미지: COME JOIN US 클릭 영역 */
     .join-btn {
       position: absolute;
       left: 50%;
@@ -61,70 +61,75 @@
       cursor: pointer;
     }
 
-    /* 네온 텍스트 효과 */
+    /* 네온 텍스트 효과 (이미지 위에 정확히 1줄만 겹치도록) */
     .neon-text {
       position: absolute;
       bottom: 5%;
       left: 50%;
-      transform: translateX(-50%);
-      color: #fff;
+      transform: translate(-50%, 10%); /* 살짝 아래로 내려서 기존 텍스트와 최대한 겹치게 */
+      color: #ffffff;
       font-weight: 800;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
       text-shadow:
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px #ff1177,
-        0 0 30px #ff1177,
-        0 0 40px #ff1177;
-      animation: neonBlink 1.4s infinite alternate;
-      pointer-events: none; /* 텍스트 클릭 막음 (버튼만 클릭) */
+        0 0 4px #ffffff,
+        0 0 8px #ffffff,
+        0 0 14px #ff4da6,
+        0 0 22px #ff4da6;
+      animation: neonBlink 1.6s infinite alternate;
+      pointer-events: none; /* 클릭은 버튼이 받게 */
+      white-space: nowrap;
     }
 
     @keyframes neonBlink {
       0% {
         opacity: 1;
         text-shadow:
-          0 0 5px #fff,
-          0 0 10px #fff,
-          0 0 20px #ff1177,
-          0 0 30px #ff1177;
+          0 0 4px #ffffff,
+          0 0 8px #ffffff,
+          0 0 14px #ff4da6,
+          0 0 22px #ff4da6;
       }
       50% {
-        opacity: 0.6;
+        opacity: 0.65;
         text-shadow:
-          0 0 3px #fff,
-          0 0 6px #ff1177;
+          0 0 2px #ffffff,
+          0 0 4px #ff4da6;
       }
       100% {
         opacity: 1;
         text-shadow:
-          0 0 5px #fff,
-          0 0 10px #fff,
-          0 0 20px #ff1177,
-          0 0 40px #ff1177;
+          0 0 5px #ffffff,
+          0 0 10px #ffffff,
+          0 0 18px #ff4da6,
+          0 0 28px #ff4da6;
       }
     }
 
-    /* 눈송이 레이어 */
+    /* 눈송이 레이어 (남색 영역 위쪽 중심) */
     .snow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 72%; /* 남색 부분 정도까지만 눈 오게 */
       pointer-events: none;
       overflow: hidden;
-      z-index: 5; /* 이미지 위에서 흘러내리도록 */
+      z-index: 5;
     }
 
     .snow span {
       position: absolute;
-      top: -10px;
-      width: 8px;
-      height: 8px;
-      background: white;
+      top: -12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      opacity: 0.9;
+      /* 중심이 밝고 가장자리가 투명해지는 그라데이션 눈송이 */
+      background: radial-gradient(circle,
+        rgba(255,255,255,0.95) 0%,
+        rgba(255,255,255,0.8) 30%,
+        rgba(255,255,255,0.0) 80%);
+      opacity: 0.95;
       animation: fall linear infinite;
     }
 
@@ -186,8 +191,8 @@
     <div class="slide active" id="slide3">
       <img id="img3" src="page3.png" alt="첫 화면" />
 
-      <!-- 네온 COME JOIN US -->
-      <div class="neon-text">COME JOIN US ✨</div>
+      <!-- 네온 COME JOIN US (텍스트 1줄) -->
+      <div class="neon-text">COME JOIN US</div>
 
       <!-- 클릭 버튼 -->
       <button class="join-btn" onclick="goNext()"></button>
@@ -204,14 +209,13 @@
 
   <script>
     const frame = document.getElementById("frame");
-    const img3 = document.getElementById("img3");
-    const bgm  = document.getElementById("bgm");
+    const img3  = document.getElementById("img3");
+    const bgm   = document.getElementById("bgm");
 
-    /* 📌 프레임 크기 자동 맞춤 */
+    /* 프레임 크기 자동 맞춤 */
     function setFrameSize() {
       const w = img3.naturalWidth;
       const h = img3.naturalHeight;
-
       if (!w || !h) return;
 
       const ratio = h / w;
@@ -226,22 +230,37 @@
     img3.addEventListener("load", setFrameSize);
     window.addEventListener("resize", setFrameSize);
 
-    /* 📌 페이지 전환 */
     function goNext() {
       document.getElementById("slide3").classList.remove("active");
       document.getElementById("slide3").classList.add("prev");
       document.getElementById("slide4").classList.add("active");
     }
 
-    /* 📌 주소 복사 */
+    /* 주소 복사 */
     function copyAddress() {
       const text = "경기 부천시 원미구 신흥로 190-1 위브더스테이트 201동 3층";
-      navigator.clipboard.writeText(text).then(() => {
-        alert("주소가 복사되었습니다!");
-      });
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert("주소가 복사되었습니다!"))
+          .catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
     }
 
-    /* 📌 지도 */
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("주소가 복사되었습니다!");
+    }
+
+    /* 지도 링크 */
     function openNaver() {
       window.open("https://naver.me/5chy75RN", "_blank");
     }
@@ -250,7 +269,7 @@
       window.open("https://place.map.kakao.com/15802181", "_blank");
     }
 
-    /* 🎵 첫 터치 시 음악 ON */
+    /* 첫 터치 시 음악 ON */
     function unmuteOnFirstClick() {
       bgm.muted = false;
       bgm.play().catch(()=>{});
@@ -258,20 +277,25 @@
     }
     document.addEventListener("click", unmuteOnFirstClick);
 
-    /* ❄ 눈송이 생성 */
+    /* 눈송이 생성 (속도 2배 느리게: duration 2배) */
     function createSnow() {
       const snowContainer = document.getElementById("snow");
 
       for (let i = 0; i < 40; i++) {
         const snow = document.createElement("span");
-        const size = Math.random() * 6 + 4;
+        const size = Math.random() * 6 + 6;  // 조금 더 크고 다양한 크기
         const startX = Math.random() * 100;
 
         snow.style.width = size + "px";
         snow.style.height = size + "px";
         snow.style.left = startX + "%";
-        snow.style.animationDuration = (Math.random() * 3 + 3) + "s";
-        snow.style.animationDelay = Math.random() * 5 + "s";
+
+        // 기존보다 2배 느리게: 6~10초
+        const duration = (Math.random() * 4 + 6);
+        snow.style.animationDuration = duration + "s";
+
+        // 시작 시점 랜덤
+        snow.style.animationDelay = (Math.random() * 6) + "s";
 
         snowContainer.appendChild(snow);
       }
