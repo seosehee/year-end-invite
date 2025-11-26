@@ -21,7 +21,7 @@
       position: relative;
       overflow: hidden;
       background: #000;
-      /* width / height 는 JS에서 이미지 비율대로 설정함 */
+      /* width / height 는 JS에서 이미지 비율대로 설정 */
     }
 
     .slide {
@@ -69,7 +69,7 @@
       cursor: pointer;
     }
 
-    /* [주소복사] */
+    /* [주소복사] – 계산된 영역 */
     .btn-copy {
       left: 58.5%;
       top: 78.4%;
@@ -99,7 +99,7 @@
   <!-- 🎵 배경 음악 -->
   <audio
     id="bgm"
-    src="christmas-christmas-music-440912.mp3"
+    src="christmas.mp3"
     autoplay
     loop
     playsinline
@@ -136,8 +136,10 @@
       if (!w || !h) return;
 
       const ratio = h / w;
-      const maxWidth = window.innerWidth * 0.9;   // 화면 가로의 90% 안쪽
-      let width = Math.min(maxWidth, w);          // 원본보다 크게는 안 키움
+
+      // 화면 가로의 98%까지 사용 (거의 꽉 차게)
+      const maxWidth = window.innerWidth * 0.98;
+      let width = Math.min(maxWidth, w);  // 원본보다 크게는 안 키움
       const height = width * ratio;
 
       frame.style.width  = width + "px";
@@ -192,7 +194,7 @@
       bgm.muted = false;
       const p = bgm.play();
       if (p && p.catch) {
-        p.catch(() => { /* 실패해도 조용히 무시 */ });
+        p.catch(() => {});
       }
       document.removeEventListener("click", unmuteOnFirstClick);
     }
