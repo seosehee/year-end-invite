@@ -14,14 +14,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: "Noto Sans KR", sans-serif;
+      overflow-x: hidden;
     }
 
     .frame {
       position: relative;
       overflow: hidden;
       background: #000;
-      /* width / height 는 JS에서 이미지 비율대로 설정 */
     }
 
     .slide {
@@ -48,7 +48,7 @@
       display: block;
     }
 
-    /* 1번 이미지: COME JOIN US 클릭 영역 */
+    /* COME JOIN US 버튼 */
     .join-btn {
       position: absolute;
       left: 50%;
@@ -61,7 +61,80 @@
       cursor: pointer;
     }
 
-    /* 2번 이미지 버튼 공통 */
+    /* 네온 텍스트 효과 */
+    .neon-text {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.2rem;
+      text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px #ff1177,
+        0 0 30px #ff1177,
+        0 0 40px #ff1177;
+      animation: neonBlink 1.4s infinite alternate;
+      pointer-events: none; /* 텍스트 클릭 막음 (버튼만 클릭) */
+    }
+
+    @keyframes neonBlink {
+      0% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #fff,
+          0 0 10px #fff,
+          0 0 20px #ff1177,
+          0 0 30px #ff1177;
+      }
+      50% {
+        opacity: 0.6;
+        text-shadow:
+          0 0 3px #fff,
+          0 0 6px #ff1177;
+      }
+      100% {
+        opacity: 1;
+        text-shadow:
+          0 0 5px #fff,
+          0 0 10px #fff,
+          0 0 20px #ff1177,
+          0 0 40px #ff1177;
+      }
+    }
+
+    /* 눈송이 레이어 */
+    .snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 5; /* 이미지 위에서 흘러내리도록 */
+    }
+
+    .snow span {
+      position: absolute;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(120vh) rotate(360deg);
+      }
+    }
+
+    /* 지도/복사 버튼 영역 */
     .btn-area {
       position: absolute;
       background: transparent;
@@ -69,7 +142,6 @@
       cursor: pointer;
     }
 
-    /* [주소복사] – 계산된 영역 */
     .btn-copy {
       left: 58.5%;
       top: 78.4%;
@@ -77,7 +149,6 @@
       height: 2.8%;
     }
 
-    /* 네이버 지도 – 노란 버튼 */
     .btn-naver {
       left: 14.9%;
       top: 93.3%;
@@ -85,7 +156,6 @@
       height: 4.4%;
     }
 
-    /* 카카오 지도 – 파란 버튼 */
     .btn-kakao {
       left: 40.4%;
       top: 93.2%;
@@ -94,9 +164,10 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- 🎵 배경 음악 -->
+  <!-- 배경음악 -->
   <audio
     id="bgm"
     src="christmas.mp3"
@@ -107,15 +178,24 @@
   ></audio>
 
   <div class="frame" id="frame">
+
+    <!-- 눈송이 레이어 -->
+    <div class="snow" id="snow"></div>
+
     <!-- PAGE 3 -->
     <div class="slide active" id="slide3">
-      <img id="img3" src="page3.png" alt="첫 번째 초대장 화면" />
+      <img id="img3" src="page3.png" alt="첫 화면" />
+
+      <!-- 네온 COME JOIN US -->
+      <div class="neon-text">COME JOIN US ✨</div>
+
+      <!-- 클릭 버튼 -->
       <button class="join-btn" onclick="goNext()"></button>
     </div>
 
     <!-- PAGE 4 -->
     <div class="slide" id="slide4">
-      <img src="page4.png" alt="두 번째 초대장 화면" />
+      <img src="page4.png" alt="두 번째 화면" />
       <button class="btn-area btn-copy"  onclick="copyAddress()"></button>
       <button class="btn-area btn-naver" onclick="openNaver()"></button>
       <button class="btn-area btn-kakao" onclick="openKakao()"></button>
@@ -123,23 +203,20 @@
   </div>
 
   <script>
-    const frame  = document.getElementById("frame");
-    const img3   = document.getElementById("img3");
-    const slide3 = document.getElementById("slide3");
-    const slide4 = document.getElementById("slide4");
-    const bgm    = document.getElementById("bgm");
+    const frame = document.getElementById("frame");
+    const img3 = document.getElementById("img3");
+    const bgm  = document.getElementById("bgm");
 
-    // 🔸 이미지 비율 기준으로 frame 크기 설정 (모바일 포함)
+    /* 📌 프레임 크기 자동 맞춤 */
     function setFrameSize() {
       const w = img3.naturalWidth;
       const h = img3.naturalHeight;
+
       if (!w || !h) return;
 
       const ratio = h / w;
-
-      // 화면 가로의 98%까지 사용 (거의 꽉 차게)
       const maxWidth = window.innerWidth * 0.98;
-      let width = Math.min(maxWidth, w);  // 원본보다 크게는 안 키움
+      const width = Math.min(maxWidth, w);
       const height = width * ratio;
 
       frame.style.width  = width + "px";
@@ -149,37 +226,22 @@
     img3.addEventListener("load", setFrameSize);
     window.addEventListener("resize", setFrameSize);
 
+    /* 📌 페이지 전환 */
     function goNext() {
-      slide3.classList.remove("active");
-      slide3.classList.add("prev");
-      slide4.classList.add("active");
+      document.getElementById("slide3").classList.remove("active");
+      document.getElementById("slide3").classList.add("prev");
+      document.getElementById("slide4").classList.add("active");
     }
 
-    // 🔹 주소 복사
+    /* 📌 주소 복사 */
     function copyAddress() {
       const text = "경기 부천시 원미구 신흥로 190-1 위브더스테이트 201동 3층";
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text)
-          .then(() => alert("주소가 복사되었습니다!"))
-          .catch(() => fallbackCopy(text));
-      } else {
-        fallbackCopy(text);
-      }
+      navigator.clipboard.writeText(text).then(() => {
+        alert("주소가 복사되었습니다!");
+      });
     }
 
-    function fallbackCopy(text) {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.style.position = "fixed";
-      textarea.style.left = "-9999px";
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      alert("주소가 복사되었습니다!");
-    }
-
-    // 🔹 지도 링크
+    /* 📌 지도 */
     function openNaver() {
       window.open("https://naver.me/5chy75RN", "_blank");
     }
@@ -188,17 +250,35 @@
       window.open("https://place.map.kakao.com/15802181", "_blank");
     }
 
-    // 🎵 첫 클릭 시 뮤트 해제 + play (모바일 자동재생 정책 대응)
+    /* 🎵 첫 터치 시 음악 ON */
     function unmuteOnFirstClick() {
-      if (!bgm) return;
       bgm.muted = false;
-      const p = bgm.play();
-      if (p && p.catch) {
-        p.catch(() => {});
-      }
+      bgm.play().catch(()=>{});
       document.removeEventListener("click", unmuteOnFirstClick);
     }
     document.addEventListener("click", unmuteOnFirstClick);
+
+    /* ❄ 눈송이 생성 */
+    function createSnow() {
+      const snowContainer = document.getElementById("snow");
+
+      for (let i = 0; i < 40; i++) {
+        const snow = document.createElement("span");
+        const size = Math.random() * 6 + 4;
+        const startX = Math.random() * 100;
+
+        snow.style.width = size + "px";
+        snow.style.height = size + "px";
+        snow.style.left = startX + "%";
+        snow.style.animationDuration = (Math.random() * 3 + 3) + "s";
+        snow.style.animationDelay = Math.random() * 5 + "s";
+
+        snowContainer.appendChild(snow);
+      }
+    }
+
+    createSnow();
   </script>
+
 </body>
 </html>
