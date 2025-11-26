@@ -21,6 +21,7 @@
       position: relative;
       overflow: hidden;
       background: #000;
+      /* width / height 는 JS에서 이미지 비율대로 설정함 */
     }
 
     .slide {
@@ -68,7 +69,7 @@
       cursor: pointer;
     }
 
-    /* [주소복사] – 오렌지 박스 위치에 맞춤 */
+    /* [주소복사] */
     .btn-copy {
       left: 58.5%;
       top: 78.4%;
@@ -95,7 +96,7 @@
 </head>
 <body>
 
-  <!-- 🎵 배경 음악 (크리스마스 캐롤) -->
+  <!-- 🎵 배경 음악 -->
   <audio
     id="bgm"
     src="christmas-christmas-music-440912.mp3"
@@ -128,19 +129,19 @@
     const slide4 = document.getElementById("slide4");
     const bgm    = document.getElementById("bgm");
 
-    // page3 원본 크기에 맞춰 frame 크기 설정 + 화면 넘치면 축소
+    // 🔸 이미지 비율 기준으로 frame 크기 설정 (모바일 포함)
     function setFrameSize() {
       const w = img3.naturalWidth;
       const h = img3.naturalHeight;
       if (!w || !h) return;
 
-      frame.style.width  = w + "px";
-      frame.style.height = h + "px";
+      const ratio = h / w;
+      const maxWidth = window.innerWidth * 0.9;   // 화면 가로의 90% 안쪽
+      let width = Math.min(maxWidth, w);          // 원본보다 크게는 안 키움
+      const height = width * ratio;
 
-      const maxWidth  = window.innerWidth  * 0.95;
-      const maxHeight = window.innerHeight * 0.95;
-      const scale = Math.min(maxWidth / w, maxHeight / h, 1);
-      frame.style.transform = "scale(" + scale + ")";
+      frame.style.width  = width + "px";
+      frame.style.height = height + "px";
     }
 
     img3.addEventListener("load", setFrameSize);
@@ -152,7 +153,7 @@
       slide4.classList.add("active");
     }
 
-    // 주소 복사
+    // 🔹 주소 복사
     function copyAddress() {
       const text = "경기 부천시 원미구 신흥로 190-1 위브더스테이트 201동 3층";
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -176,7 +177,7 @@
       alert("주소가 복사되었습니다!");
     }
 
-    // 지도 링크
+    // 🔹 지도 링크
     function openNaver() {
       window.open("https://naver.me/5chy75RN", "_blank");
     }
@@ -185,10 +186,14 @@
       window.open("https://place.map.kakao.com/15802181", "_blank");
     }
 
-    // 🎵 첫 클릭 시 뮤트 해제 (브라우저 자동재생 정책 대응)
+    // 🎵 첫 클릭 시 뮤트 해제 + play (모바일 자동재생 정책 대응)
     function unmuteOnFirstClick() {
       if (!bgm) return;
       bgm.muted = false;
+      const p = bgm.play();
+      if (p && p.catch) {
+        p.catch(() => { /* 실패해도 조용히 무시 */ });
+      }
       document.removeEventListener("click", unmuteOnFirstClick);
     }
     document.addEventListener("click", unmuteOnFirstClick);
