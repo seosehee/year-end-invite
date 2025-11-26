@@ -2,17 +2,17 @@
 <html lang="ko">
 <head>
   <!-- 🔥 카카오톡 / SNS 공유 미리보기 설정 (Open Graph) -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="송년회 초대장 도착!">
-<meta property="og:description" content="SIIC(씨익) 하고 들어오세요.">
-<meta property="og:image" content="https://seosehee.github.io/year-end-invite/miri2.png">
-<meta property="og:url" content="https://seosehee.github.io/year-end-invite/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="송년회 초대장 도착!">
+  <meta property="og:description" content="SIIC(씨익) 하고 들어오세요.">
+  <meta property="og:image" content="https://seosehee.github.io/year-end-invite/miri.png">
+  <meta property="og:url" content="https://seosehee.github.io/year-end-invite/">
 
-<!-- 🔥 트위터 카드(카톡에서도 참고함) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="송년회 초대장 도착!">
-<meta name="twitter:description" content="SIIC(씨익) 하고 들어오세요.">
-<meta name="twitter:image" content="https://seosehee.github.io/year-end-invite/miri2.png">
+  <!-- 🔥 트위터 카드 -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="송년회 초대장 도착!">
+  <meta name="twitter:description" content="SIIC(씨익) 하고 들어오세요.">
+  <meta name="twitter:image" content="https://seosehee.github.io/year-end-invite/miri.png">
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -61,11 +61,11 @@
       display: block;
     }
 
-    /* 1번 이미지: COME JOIN US 클릭 영역 */
+    /* COME JOIN US 클릭 영역 (이미지만 보임) */
     .join-btn {
       position: absolute;
-      left: 48%;
-      bottom: 4%;
+      left: 50%;
+      bottom: 5%;
       transform: translateX(-50%);
       width: 50%;
       height: 6%;
@@ -74,58 +74,13 @@
       cursor: pointer;
     }
 
-    /* 네온 텍스트 효과 (이미지 위에 정확히 1줄만 겹치도록) */
-    .neon-text {
-      position: absolute;
-      bottom: 4%;
-      left: 48%;
-      transform: translate(-50%, 10%); /* 살짝 아래로 내려서 기존 텍스트와 최대한 겹치게 */
-      color: #ffffff;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      text-shadow:
-        0 0 4px #ffffff,
-        0 0 8px #ffffff,
-        0 0 14px #ff4da6,
-        0 0 22px #ff4da6;
-      animation: neonBlink 1.6s infinite alternate;
-      pointer-events: none; /* 클릭은 버튼이 받게 */
-      white-space: nowrap;
-    }
-
-    @keyframes neonBlink {
-      0% {
-        opacity: 1;
-        text-shadow:
-          0 0 4px #ffffff,
-          0 0 8px #ffffff,
-          0 0 14px #ff4da6,
-          0 0 22px #ff4da6;
-      }
-      50% {
-        opacity: 0.65;
-        text-shadow:
-          0 0 2px #ffffff,
-          0 0 4px #ff4da6;
-      }
-      100% {
-        opacity: 1;
-        text-shadow:
-          0 0 5px #ffffff,
-          0 0 10px #ffffff,
-          0 0 18px #ff4da6,
-          0 0 28px #ff4da6;
-      }
-    }
-
-    /* 눈송이 레이어 (남색 영역 위쪽 중심) */
+    /* 눈송이 영역 */
     .snow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 72%; /* 남색 부분 정도까지만 눈 오게 */
+      height: 72%;
       pointer-events: none;
       overflow: hidden;
       z-index: 5;
@@ -137,12 +92,10 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      /* 중심이 밝고 가장자리가 투명해지는 그라데이션 눈송이 */
       background: radial-gradient(circle,
         rgba(255,255,255,0.95) 0%,
         rgba(255,255,255,0.8) 30%,
         rgba(255,255,255,0.0) 80%);
-      opacity: 0.95;
       animation: fall linear infinite;
     }
 
@@ -152,7 +105,7 @@
       }
     }
 
-    /* 지도/복사 버튼 영역 */
+    /* 지도/복사 버튼 위치 */
     .btn-area {
       position: absolute;
       background: transparent;
@@ -160,26 +113,9 @@
       cursor: pointer;
     }
 
-    .btn-copy {
-      left: 58.5%;
-      top: 78.4%;
-      width: 12.5%;
-      height: 2.8%;
-    }
-
-    .btn-naver {
-      left: 14.9%;
-      top: 93.3%;
-      width: 30.9%;
-      height: 4.4%;
-    }
-
-    .btn-kakao {
-      left: 40.4%;
-      top: 93.2%;
-      width: 44.4%;
-      height: 4.7%;
-    }
+    .btn-copy { left: 58.5%; top: 78.4%; width: 12.5%; height: 2.8%; }
+    .btn-naver { left: 14.9%; top: 93.3%; width: 30.9%; height: 4.4%; }
+    .btn-kakao { left: 40.4%; top: 93.2%; width: 44.4%; height: 4.7%; }
   </style>
 </head>
 
@@ -204,17 +140,15 @@
     <div class="slide active" id="slide3">
       <img id="img3" src="page3.png" alt="첫 화면" />
 
-      <!-- 네온 COME JOIN US (텍스트 1줄) -->
-      <div class="neon-text">COME JOIN US</div>
-
-      <!-- 클릭 버튼 -->
+      <!-- 네온 텍스트 제거됨 -->
+      <!-- 클릭 버튼만 유지 -->
       <button class="join-btn" onclick="goNext()"></button>
     </div>
 
     <!-- PAGE 4 -->
     <div class="slide" id="slide4">
       <img src="page4.png" alt="두 번째 화면" />
-      <button class="btn-area btn-copy"  onclick="copyAddress()"></button>
+      <button class="btn-area btn-copy" onclick="copyAddress()"></button>
       <button class="btn-area btn-naver" onclick="openNaver()"></button>
       <button class="btn-area btn-kakao" onclick="openKakao()"></button>
     </div>
@@ -242,6 +176,7 @@
 
     img3.addEventListener("load", setFrameSize);
     window.addEventListener("resize", setFrameSize);
+
 
     function goNext() {
       document.getElementById("slide3").classList.remove("active");
@@ -273,7 +208,7 @@
       alert("주소가 복사되었습니다!");
     }
 
-    /* 지도 링크 */
+    /* 지도 */
     function openNaver() {
       window.open("https://naver.me/5chy75RN", "_blank");
     }
@@ -290,28 +225,37 @@
     }
     document.addEventListener("click", unmuteOnFirstClick);
 
-    /* 눈송이 생성 (속도 2배 느리게: duration 2배) */
+
+
+    /* ⭐ 눈송이 무한 생성 */
     function createSnow() {
-      const snowContainer = document.getElementById("snow");
-
-      for (let i = 0; i < 40; i++) {
-        const snow = document.createElement("span");
-        const size = Math.random() * 6 + 6;  // 조금 더 크고 다양한 크기
-        const startX = Math.random() * 100;
-
-        snow.style.width = size + "px";
-        snow.style.height = size + "px";
-        snow.style.left = startX + "%";
-
-        // 기존보다 2배 느리게: 6~10초
-        const duration = (Math.random() * 8 + 12);
-        snow.style.animationDuration = duration + "s";
-
-        // 시작 시점 랜덤
-        snow.style.animationDelay = (Math.random() * 6) + "s";
-
-        snowContainer.appendChild(snow);
+      for (let i = 0; i < 20; i++) {
+        addSnowflake();
       }
+
+      setInterval(addSnowflake, 450);
+    }
+
+    function addSnowflake() {
+      const snowContainer = document.getElementById("snow");
+      const snow = document.createElement("span");
+
+      const size = Math.random() * 6 + 6;
+      snow.style.width = size + "px";
+      snow.style.height = size + "px";
+
+      snow.style.left = Math.random() * 100 + "%";
+
+      snow.style.opacity = (Math.random() * 0.3 + 0.4);
+
+      const duration = (Math.random() * 8 + 12);
+      snow.style.animationDuration = duration + "s";
+
+      snow.style.animationDelay = (Math.random() * 6) + "s";
+
+      snowContainer.appendChild(snow);
+
+      setTimeout(() => snow.remove(), (duration + 1) * 1000);
     }
 
     createSnow();
@@ -319,9 +263,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
