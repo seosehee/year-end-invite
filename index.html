@@ -3,295 +3,195 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>부천센터 송년회 초대장</title>
+  <title>카페24 부천센터 송년회 초대장</title>
+
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #b30024;
-      color: #222;
-    }
-    .page-wrapper {
+      background: #000;
       min-height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 24px;
+      align-items: center;
+      font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    .page {
-      width: 100%;
-      max-width: 480px;
-      min-height: 640px;
-      border-radius: 24px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
-      overflow: hidden;
-      background: #b30024;
+
+    .frame {
       position: relative;
-      opacity: 0;
-      transform: translateX(40px);
-      pointer-events: none;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      overflow: hidden;
+      background: #000;
     }
-    .page.active {
-      opacity: 1;
-      transform: translateX(0);
-      pointer-events: auto;
-    }
-    .page-1-bg {
+
+    .slide {
       position: absolute;
       inset: 0;
-      background-image: url('main.jpg'); /* 👉 업로드한 이미지를 main.jpg로 저장해서 index.html과 같은 폴더에 두세요 */
-      background-size: cover;
-      background-position: center;
-      filter: drop-shadow(0 12px 25px rgba(0,0,0,0.4));
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
     }
-    .page-1-overlay {
-      position: relative;
-      z-index: 1;
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide.prev {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    .slide img {
       width: 100%;
       height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 32px 24px 40px;
+      display: block;
     }
-    .text-card {
-      width: 100%;
-      max-width: 360px;
-      background: rgba(255, 252, 246, 0.96);
-      border-radius: 18px;
-      padding: 28px 22px 24px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      letter-spacing: 0.05em;
-      color: #c0202d;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .tag-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ff3b5e;
-      box-shadow: 0 0 6px rgba(255,59,94,0.7);
-    }
-    .headline {
-      font-size: 20px;
-      line-height: 1.5;
-      font-weight: 700;
-      color: #b11226;
-      margin-bottom: 10px;
-    }
-    .headline span {
-      white-space: nowrap;
-    }
-    .sub {
-      font-size: 14px;
-      color: #555;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-    .cta-button {
-      width: 100%;
+
+    /* 1번 이미지: COME JOIN US 클릭 영역 */
+    .join-btn {
+      position: absolute;
+      left: 50%;
+      bottom: 5%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 6%;
+      background: transparent;
       border: none;
-      border-radius: 999px;
-      padding: 13px 16px;
-      font-size: 15px;
-      font-weight: 600;
       cursor: pointer;
-      background: linear-gradient(135deg, #ff6376, #ffb15c);
-      color: #fffdf7;
-      box-shadow: 0 9px 18px rgba(175, 0, 28, 0.45);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-    .cta-button span.icon {
-      font-size: 16px;
-      transform: translateY(1px);
-    }
-    .cta-caption {
-      font-size: 11px;
-      color: rgba(0,0,0,0.45);
-      margin-top: 10px;
-      text-align: center;
     }
 
-    /* 2번 페이지 */
-    .page-2-inner {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at top, #ffe7e0, #b30024 55%);
-      padding: 32px 24px 32px;
-      color: #fff7f2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 11px;
-      border-radius: 999px;
-      font-size: 11px;
-      background: rgba(0,0,0,0.28);
-      backdrop-filter: blur(8px);
-    }
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #ffda7b;
-      box-shadow: 0 0 6px rgba(255,218,123,0.8);
-    }
-    .title-main {
-      font-size: 22px;
-      line-height: 1.5;
-      font-weight: 700;
-      margin: 8px 0 18px;
-    }
-    .body-text {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #ffe9df;
-    }
-    .info-box {
-      margin-top: 16px;
-      padding: 14px 14px 13px;
-      border-radius: 16px;
-      background: rgba(0,0,0,0.32);
-      border: 1px solid rgba(255,255,255,0.18);
-      font-size: 13px;
-      line-height: 1.7;
-    }
-    .info-box h3 {
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: #ffe6bb;
-    }
-    .info-box ul {
-      list-style: none;
-    }
-    .info-box li + li {
-      margin-top: 2px;
-    }
-    .footer-text {
-      font-size: 11px;
-      color: rgba(255,240,230,0.8);
-      text-align: right;
-    }
-    .back-hint {
-      font-size: 11px;
-      opacity: 0.75;
-      margin-top: 6px;
+    /* 2번 이미지 버튼 공통 */
+    .btn-area {
+      position: absolute;
+      background: transparent;
+      border: none;
+      cursor: pointer;
     }
 
-    @media (max-width: 480px) {
-      .page-wrapper {
-        padding: 16px;
-      }
-      .page {
-        min-height: 580px;
-      }
-      .headline {
-        font-size: 18px;
-      }
-      .title-main {
-        font-size: 20px;
-      }
+    /* [주소복사] – 오렌지 박스 위치에 맞춤 */
+    .btn-copy {
+      left: 58.5%;
+      top: 78.4%;
+      width: 12.5%;
+      height: 2.8%;
+    }
+
+    /* 네이버 지도 – 노란 버튼 */
+    .btn-naver {
+      left: 14.9%;
+      top: 93.3%;
+      width: 30.9%;
+      height: 4.4%;
+    }
+
+    /* 카카오 지도 – 파란 버튼 */
+    .btn-kakao {
+      left: 40.4%;
+      top: 93.2%;
+      width: 44.4%;
+      height: 4.7%;
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <!-- 1번 페이지 -->
-    <section id="page-1" class="page active">
-      <div class="page-1-bg"></div>
-      <div class="page-1-overlay">
-        <div class="text-card">
-          <div class="tag">
-            <span class="tag-dot"></span>
-            <span>2025 CAFE24 BUCHEON CENTER</span>
-          </div>
-          <div class="headline">
-            <span>고객 만족은 잠시 OFF,</span><br />
-            <span>우리의 만족은 FULL ON 하는</span><br />
-            <span>부천센터 송년회에 초대합니다.</span>
-          </div>
-          <p class="sub">
-            올 한 해 고생한 우리를 위해 준비한 연말 저녁입니다.<br>
-            잠시 일은 내려두고, 웃음과 수다로 가득 채워볼까요?
-          </p>
-          <button id="openInviteBtn" class="cta-button" type="button">
-            <span>여기를 터치해서 초대장을 열어주세요</span>
-            <span class="icon">➜</span>
-          </button>
-          <p class="cta-caption">* 버튼(문구)을 눌러 2번 페이지로 이동합니다.</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- 2번 페이지 (내용은 이후에 자유롭게 수정해서 쓰면 됩니다) -->
-    <section id="page-2" class="page">
-      <div class="page-2-inner">
-        <div>
-          <div class="badge">
-            <span class="badge-dot"></span>
-            <span>Slack 알림 대신 웃음 알림이 울리는 시간</span>
-          </div>
-          <h1 class="title-main">우리의 만족 모드, 이제 진짜 ON!</h1>
-          <p class="body-text">
-            하루 동안 쌓였던 티켓과 메일은 잠시 잊고,<br>
-            맛있는 음식과 편안한 대화로만 채우는 부천센터의 연말밤입니다.<br><br>
-            조용히 웃어도, 박장대소를 해도 괜찮은 시간.<br>
-            각자의 방식으로 2025년을 마무리하러 오세요.
-          </p>
-          <div class="info-box">
-            <h3>송년회 일정 안내</h3>
-            <ul>
-              <li>■ 일자 : 2025년 12월 19일(금) 늦은 6시</li>
-              <li>■ 장소 : 부천 CECECE (쎄쎄쎄)</li>
-              <li>■ 드레스코드 : 의상·악세서리 어디든 <strong>레드 한 스푼</strong></li>
-            </ul>
-          </div>
-        </div>
-        <div>
-          <p class="footer-text">
-            올 한 해, 누구보다 바빴던 우리에게 보내는 작은 선물 같은 밤.
-          </p>
-          <p class="back-hint">※ 1번 화면으로 다시 돌아가고 싶다면 브라우저 뒤로가기를 사용해주세요.</p>
-        </div>
-      </div>
-    </section>
+  <!-- 🎵 배경 음악 (크리스마스 캐롤) -->
+  <audio
+    id="bgm"
+    src="christmas-christmas-music-440912.mp3"
+    autoplay
+    loop
+    playsinline
+    muted
+  ></audio>
+
+  <div class="frame" id="frame">
+    <!-- PAGE 3 -->
+    <div class="slide active" id="slide3">
+      <img id="img3" src="page3.png" alt="첫 번째 초대장 화면" />
+      <button class="join-btn" onclick="goNext()"></button>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="slide" id="slide4">
+      <img src="page4.png" alt="두 번째 초대장 화면" />
+      <button class="btn-area btn-copy"  onclick="copyAddress()"></button>
+      <button class="btn-area btn-naver" onclick="openNaver()"></button>
+      <button class="btn-area btn-kakao" onclick="openKakao()"></button>
+    </div>
   </div>
 
   <script>
-    const openInviteBtn = document.getElementById('openInviteBtn');
-    const page1 = document.getElementById('page-1');
-    const page2 = document.getElementById('page-2');
+    const frame  = document.getElementById("frame");
+    const img3   = document.getElementById("img3");
+    const slide3 = document.getElementById("slide3");
+    const slide4 = document.getElementById("slide4");
+    const bgm    = document.getElementById("bgm");
 
-    openInviteBtn.addEventListener('click', () => {
-      page1.classList.remove('active');
-      page2.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    // page3 원본 크기에 맞춰 frame 크기 설정 + 화면 넘치면 축소
+    function setFrameSize() {
+      const w = img3.naturalWidth;
+      const h = img3.naturalHeight;
+      if (!w || !h) return;
+
+      frame.style.width  = w + "px";
+      frame.style.height = h + "px";
+
+      const maxWidth  = window.innerWidth  * 0.95;
+      const maxHeight = window.innerHeight * 0.95;
+      const scale = Math.min(maxWidth / w, maxHeight / h, 1);
+      frame.style.transform = "scale(" + scale + ")";
+    }
+
+    img3.addEventListener("load", setFrameSize);
+    window.addEventListener("resize", setFrameSize);
+
+    function goNext() {
+      slide3.classList.remove("active");
+      slide3.classList.add("prev");
+      slide4.classList.add("active");
+    }
+
+    // 주소 복사
+    function copyAddress() {
+      const text = "경기 부천시 원미구 신흥로 190-1 위브더스테이트 201동 3층";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => alert("주소가 복사되었습니다!"))
+          .catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      alert("주소가 복사되었습니다!");
+    }
+
+    // 지도 링크
+    function openNaver() {
+      window.open("https://naver.me/5chy75RN", "_blank");
+    }
+
+    function openKakao() {
+      window.open("https://place.map.kakao.com/15802181", "_blank");
+    }
+
+    // 🎵 첫 클릭 시 뮤트 해제 (브라우저 자동재생 정책 대응)
+    function unmuteOnFirstClick() {
+      if (!bgm) return;
+      bgm.muted = false;
+      document.removeEventListener("click", unmuteOnFirstClick);
+    }
+    document.addEventListener("click", unmuteOnFirstClick);
   </script>
 </body>
 </html>
-
-
-
